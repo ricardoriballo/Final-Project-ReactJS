@@ -6,7 +6,7 @@ import styled from "styled-components";
 const FaresDetails = () => {
   const [fares, setFares] = useState([]);
   const { id } = useParams();
-  const urlPage = "http://localhost:8000/api/fares";
+  const urlPage = "https://co-working-back.vercel.app/api/fares";
 
   useEffect(() => {
     axios.get(urlPage).then((response) => {

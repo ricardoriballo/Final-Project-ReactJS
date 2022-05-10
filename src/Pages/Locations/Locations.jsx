@@ -8,7 +8,7 @@ export const Locations = () => {
   const [coworkings, setCoworking] = useState([]);
   const [search, setSearch] = useState([]);
 
-  const urlPage = "http://localhost:8000/api/coworking"
+  const urlPage = "https://co-working-back.vercel.app/api/coworking"
 
   useEffect(() => {
     axios.get(urlPage).then((response) => {
