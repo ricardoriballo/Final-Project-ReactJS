@@ -3,10 +3,22 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import emailjs from "@emailjs/browser";
 import { API } from "../../../shared/Services/api"
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+
 
 const LocationsDetails = () => {
   const [coworkings, setCoworking] = useState([]);
   const { id } = useParams();
+  let navigate = useNavigate();
+
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   
 
   useEffect(() => {
@@ -23,11 +35,27 @@ const LocationsDetails = () => {
     location,
     capacity,
     category,
+    reviews
   } = coworkings;
   
+  const onSubmit = (formData) => {
+    console.log(formData.reviews)
+     const updateReviews = {
+      reviews : [formData.reviews, ...reviews]
+    }
+
+    API.patch(`coworking/${id}`, updateReviews).then((response) => {
+      console.log(response);
+      window.location.reload(false)
+
+      
+    });
+  };
+
+ 
 
   
-
+console.log(reviews)
 
 
 
@@ -96,6 +124,16 @@ const LocationsDetails = () => {
             <p className="pDescrip">{description}</p>
           </div>
         </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label>Reseñas</label>
+          <input className="inputEmail"
+        type="text"
+        name="reviews"
+        {...register("reviews", { 
+          required: true,})}
+      />
+         
+        </form>
 
       </ContainerDetail>
     </>
