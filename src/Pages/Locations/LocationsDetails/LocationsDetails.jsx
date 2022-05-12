@@ -4,14 +4,12 @@ import styled from "styled-components";
 import emailjs from "@emailjs/browser";
 import { API } from "../../../shared/Services/api"
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 
 
 const LocationsDetails = () => {
   const [coworkings, setCoworking] = useState([]);
   const { id } = useParams();
-  let navigate = useNavigate();
 
 
   const {
@@ -124,16 +122,28 @@ console.log(reviews)
             <p className="pDescrip">{description}</p>
           </div>
         </div>
+
+        <div className="containerForm">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label>Reseñas</label>
-          <input className="inputEmail"
+          <label>Escriba una reseña</label>
+          <textarea 
+          rows="5" 
         type="text"
         name="reviews"
         {...register("reviews", { 
           required: true,})}
-      />
-         
+      />  
+      <button>Enviar Reseña</button>
         </form>
+        <p className="experiencia">Experiencias de nuestros clientes:</p>
+        {reviews && reviews.map((review)=>{
+          return(
+            
+            <p className="review">"{review}"</p>
+            
+          )
+        })}
+        </div>
 
       </ContainerDetail>
     </>
@@ -178,6 +188,7 @@ textarea{
 
 label{
     padding:10px;
+    font-size: 15px;
 }
 
 .dataSecur{
@@ -271,12 +282,8 @@ const ContainerDetail = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    
-
-
     align-items:center;
   }
-
   .imgContainer{
       width:100%;
   }
@@ -284,11 +291,11 @@ const ContainerDetail = styled.div`
       text-align:center;
       margin: 20px;
       h3{
-    color: rgb(255, 164, 53);
-    font-family: "Josefin Sans", sans-serif;
-    text-shadow: -4px 3px #000000;
-    font-size:40px;
-    margin:0;}
+      color: rgb(255, 164, 53);
+      font-family: "Josefin Sans", sans-serif;
+      text-shadow: -4px 3px #000000;
+      font-size:40px;
+      margin:0;}
   }
   .subInfo{
       text-align:center;
@@ -300,12 +307,102 @@ const ContainerDetail = styled.div`
      padding-bottom:25px ;
   }
 
+  form{
+    display: flex;
+    margin: 0px 0px 10px 0px;
+    width: 100%;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  button{
+    margin: 10px 0px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+  }
+  label{
+    padding-bottom: 10px;
+  }
+  .experiencia{
+    padding: 2rem;
+    margin: 0px;
+    font-size: 22px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  textarea{
+    width:450px;
+    height:200px;
+    text-align: start;
+    Word-break: break-Word;
+    resize:none;
+}
+ .review{
+    padding: 2rem;
+    justify-content: center;
+    font-size:16px;
+    text-align: center;    
+    font-style: italic;
+    color: #BA4A00;
+    margin: 0px;
+ }
+  
+
   @media screen and (min-width: 280px) and (max-width: 1080px){
     .subInfo{
       text-align:center;
-     font-size: 15px;
+      font-size: 15px;
       width: 70%;
   }
+  .containerForm{
+    display: flex;
+    margin: 0px auto;
+    justify-content: flex-start;
+    width: 90%;
+    max-height: 100%;
+    flex-direction: column;
+  }
+  form{
+    display: flex;
+    margin: 0px 0px 10px 0px;
+    width: 100%;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  button{
+    margin: 10px 0px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+  }
+  label{
+    padding-bottom: 10px;
+  }
+  .experiencia{
+    padding: 2rem;
+    margin: 0px;
+    font-size: 22px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  textarea{
+    width:250px;
+    height:200px;
+    text-align: start;
+    Word-break: break-Word;
+    resize:none;
+}
+ .review{
+    padding: 2rem;
+    justify-content: center;
+    font-size:16px;
+    text-align: center;    
+    font-style: italic;
+    color: #BA4A00;
+    margin: 0px;
+ }
   }
 
 `;
